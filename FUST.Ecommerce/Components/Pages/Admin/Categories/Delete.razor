@@ -1,0 +1,12 @@
+﻿@page "/categories/delete/{id:int}"
+@attribute [Authorize]
+
+<h3>Delete Category</h3>
+
+@if (showSuccessAlert)
+{
+    <br />
+    <div class="alert alert-success" role="alert">
+        Category deleted successfully!
+    </div>
+}

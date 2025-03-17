@@ -1,0 +1,28 @@
+﻿@page "/categories/create"
+@attribute [Authorize]
+<h3>Create Category</h3>
+
+<EditForm EditContext="_editContext" OnValidSubmit="Save">
+
+    <DataAnnotationsValidator />
+    <div>
+        <label for="txtName">Name:</label>
+        <InputText class="form-control"
+                   id="txtName"
+                   @bind-Value="Input.Name" />
+        <ValidationMessage For="@(() => Input.Name)" />
+    </div>
+
+    
+    <br />
+    <button type="submit" class="btn btn-primary">Insert</button>
+</EditForm>
+
+@if (showSuccessAlert)
+{
+    <br />
+    <div class="alert alert-success" role="alert">
+        Category created successfully!
+    </div>
+}
+

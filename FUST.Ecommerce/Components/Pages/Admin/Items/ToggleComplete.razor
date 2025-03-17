@@ -1,0 +1,14 @@
+﻿@page "/items/togglecomplete/{id:int}"
+@attribute [Authorize]
+@if (showSuccessAlert)
+{
+    <br />
+    <div class="alert alert-success" role="alert">
+        Item updated successfully!
+    </div>
+}
+
+<a href="/items">Back to List</a>
+
+
+

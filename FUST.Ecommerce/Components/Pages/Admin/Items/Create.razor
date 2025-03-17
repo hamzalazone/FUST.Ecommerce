@@ -1,0 +1,62 @@
+﻿@page "/items/create"
+@attribute [Authorize]
+
+<h3 class="text-center mb-4">Create Item</h3>
+
+<EditForm EditContext="_editContext" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="txtTitle">Title:</label>
+        <InputText class="form-control" id="txtTitle" @bind-Value="Input.Title" />
+        <ValidationMessage For="@(() => Input.Title)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label for="txtDescription">Description:</label>
+        <InputText class="form-control" id="txtDescription" @bind-Value="Input.Description" />
+        <ValidationMessage For="@(() => Input.Description)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label for="txtCategoryId">Category ID:</label>
+        <InputNumber class="form-control" id="txtCategoryId" @bind-Value="Input.CategoryId" />
+        <ValidationMessage For="@(() => Input.CategoryId)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label for="txtUserId">User ID:</label>
+        <InputText class="form-control" id="txtUserId" @bind-Value="Input.UserId" />
+        <ValidationMessage For="@(() => Input.UserId)" class="text-danger" />
+    </div>
+
+    <div class="form-group form-check">
+        <InputCheckbox class="form-check-input" id="txtCompleted" @bind-Value="Input.Completed" />
+        <label class="form-check-label" for="txtCompleted">Completed</label>
+        <ValidationMessage For="@(() => Input.Completed)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label for="txtCreatedDate">Created Date:</label>
+        <InputDate class="form-control" id="txtCreatedDate" @bind-Value="Input.CreatedDate" />
+        <ValidationMessage For="@(() => Input.CreatedDate)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label for="txtCompletedDate">Completed Date:</label>
+        <InputDate class="form-control" id="txtCompletedDate" @bind-Value="Input.CompletedDate" />
+        <ValidationMessage For="@(() => Input.CompletedDate)" class="text-danger" />
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">Insert</button>
+        <a href="/items" class="btn btn-secondary ml-2">Back to List</a>
+    </div>
+</EditForm>
+
+@if (showSuccessAlert)
+{
+    <div class="alert alert-success mt-4" role="alert">
+        Item created successfully!
+    </div>
+}
