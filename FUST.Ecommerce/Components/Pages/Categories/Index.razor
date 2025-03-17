@@ -1,0 +1,39 @@
+﻿@page "/categories"
+
+
+<h3>Index</h3>
+
+@if (_categories is null)
+{
+
+	<p>Loading ...</p>
+}
+else
+{
+	<table class="table">
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			
+		</tr>
+		@foreach (var category in _categories)
+		{
+			<tr>
+				<td>@category.Id</td>
+				<td>@category.Name</td>
+
+				<td><a href="/categories/details/@category.Id">Details</a></td>
+
+				<td><a class="btn btn-primary" href="/categories/delete/@category.Id">Delete</a></td>
+				<td><a class="btn btn-primary" href="/categories/update/@category.Id">Update</a></td>
+
+			</tr>
+		}
+
+	</table>
+
+	<a class="btn btn-primary" href="/categories/create">create</a>
+
+}
+
+

@@ -1,0 +1,52 @@
+﻿@page "/items"
+
+
+<h3>Index</h3>
+
+@if (_items is null)
+{
+
+	<p>Loading ...</p>
+}
+else
+{
+	<table class="table">
+		<tr>
+			<th>Id</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>CategoryId</th>
+			<th>UserId</th>
+			<th>Completed</th>
+			<th>CreatedDate</th>
+			<th>CompletedDate</th>
+
+
+		</tr>
+		@foreach (var item in _items)
+		{
+			<tr>
+				<td>@item.Id</td>
+				<td>@item.Title</td>
+				<td>@item.Description</td>
+				<td>@item.CategoryId</td>
+				<td>@item.UserId</td>
+				<td>@item.Completed</td>
+				<td>@item.CreatedDate</td>
+				<td>@item.CompletedDate</td>
+
+				<td><a href="/items/details/@item.Id">Details</a></td>
+
+				<td><a class="btn btn-primary" href="/items/delete/@item.Id">Delete</a></td>
+				<td><a class="btn btn-primary" href="/items/update/@item.Id">Update</a></td>
+
+			</tr>
+		}
+
+	</table>
+
+	<a class="btn btn-primary" href="/items/create">create</a>
+
+}
+
+
