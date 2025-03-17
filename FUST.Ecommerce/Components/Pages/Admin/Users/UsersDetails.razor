@@ -1,0 +1,48 @@
+﻿@page "/users/details/{UserId}"
+
+@using Fust.Ecommerce.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<ApplicationUser> UserManager
+
+<h3>Details</h3>
+
+@if (User is null)
+{
+
+    <p>Loading ...</p>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>PasswordHash</th>
+            </tr>
+        </thead>
+
+		<tbody>
+            <tr>
+                <td>@UserId</td>
+                <td>@User.Email</td>
+                <td>@User.PasswordHash</td>
+            </tr>
+        </tbody>
+
+    </table>
+}
+
+@code {
+
+    public ApplicationUser? User { get; set; }
+
+    [Parameter]
+    public string UserId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await UserManager.FindByIdAsync(UserId);
+    }
+}

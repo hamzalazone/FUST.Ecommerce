@@ -1,0 +1,45 @@
+﻿@page "/users"
+@using Fust.Ecommerce.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<ApplicationUser> UserManager
+
+
+<h3>Users</h3>
+ 
+@if (userList is null)
+{
+	<p>Loading ...</p>
+}
+else
+{
+	<table class="table">
+
+		<tr>
+			<th>Id</th>
+			<th>Email</th>
+
+		</tr>
+		@foreach (var user in userList)
+		{	
+			<tr>
+				<td>@user.Id</td>
+				<td>@user.Email</td>
+
+				<td><a href="/users/details/@user.Id">Details</a></td>
+				<td><a class="btn btn-primary" href="/users/update/@user.Id">Update</a></td>
+
+			</tr>
+		}
+	</table>
+}
+
+@code {
+
+	public List<ApplicationUser>? userList { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		userList = await UserManager.Users.ToListAsync();
+	}
+}

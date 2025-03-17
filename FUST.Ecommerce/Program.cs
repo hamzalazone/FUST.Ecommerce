@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Fust.Ecommerce.Components;
 using Fust.Ecommerce.Components.Account;
 using Fust.Ecommerce.Data;
+using Fust.Ecommerce.Services;
+using Fust.Ecommerce.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+builder.Services.AddScoped<IAspNetUsersDataAccess, AspNetUsersDataAccess>();
 
 var app = builder.Build();
 

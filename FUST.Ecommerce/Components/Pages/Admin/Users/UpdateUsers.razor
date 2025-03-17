@@ -1,0 +1,60 @@
+﻿@page "/users/update/{UserId}"
+
+@using Fust.Ecommerce.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<ApplicationUser> UserManage
+
+<h3>Update User</h3>
+
+@if (User != null)
+{
+    <EditForm Model="User" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="userName" class="form-label">User Name:</label>
+            <InputText id="userName" class="form-control" @bind-Value="User.UserName" />
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <InputText id="email" class="form-control" @bind-Value="User.Email" />
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number:</label>
+            <InputText id="phoneNumber" class="form-control" @bind-Value="User.PhoneNumber" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </EditForm>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    public ApplicationUser? User { get; set; }
+
+    [Parameter]
+    public string UserId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await UserManage.FindByIdAsync(UserId);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var result = await UserManage.UpdateAsync(User);
+        if (result.Succeeded)
+        {
+            // Handle success, e.g., show a success message or redirect
+        }
+        else
+        {
+            // Handle errors, e.g., show error messages
+        }
+    }
+}
