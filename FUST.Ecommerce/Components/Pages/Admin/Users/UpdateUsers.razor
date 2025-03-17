@@ -4,6 +4,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @inject UserManager<ApplicationUser> UserManage
+@inject NavigationManager Navigation
 
 <h3>Update User</h3>
 
@@ -28,6 +29,16 @@
 
         <button type="submit" class="btn btn-primary">Update</button>
     </EditForm>
+
+    @if (SuccessMessage != null)
+    {
+        <div class="alert alert-success mt-3">@SuccessMessage</div>
+    }
+
+    @if (ErrorMessage != null)
+    {
+        <div class="alert alert-danger mt-3">@ErrorMessage</div>
+    }
 }
 else
 {
@@ -36,6 +47,8 @@ else
 
 @code {
     public ApplicationUser? User { get; set; }
+    public string? ErrorMessage { get; set; }
+    public string? SuccessMessage { get; set; }
 
     [Parameter]
     public string UserId { get; set; }
@@ -50,11 +63,13 @@ else
         var result = await UserManage.UpdateAsync(User);
         if (result.Succeeded)
         {
-            // Handle success, e.g., show a success message or redirect
+            SuccessMessage = "User updated successfully!";
+            
+            //Navigation.NavigateTo("/users");
         }
         else
         {
-            // Handle errors, e.g., show error messages
+            ErrorMessage = string.Join(", ", result.Errors.Select(e => e.Description));
         }
     }
 }
